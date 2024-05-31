@@ -1,0 +1,116 @@
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        vector<int> ans;
+        int count;
+        for (int i = 0; i < nums.size(); i++) {
+            count = 0;
+            for (int j = 0; j < nums.size(); j++) {
+                if (nums[j] < nums[i]) count++;
+            }
+            ans.push_back(count);
+        }
+        return ans;
+    }
+};
+
+
+class Solution {
+
+public:
+    vector<int> runningSum(vector<int>& nums) {
+        for(int i=1;i<nums.size();i++){
+
+            nums[i]+=nums[i-1];
+
+        }
+
+        return nums;
+    }
+};
+
+
+class Solution {
+public:
+    int mostWordsFound(vector<string>& sentences) {
+        int n=INT_MIN;
+        for(int i=0;i<sentences.size();i++){
+            int sum=1;
+            for(int j=0;j<sentences[i].size();j++){
+                if(sentences[i][j]==' '){
+                    sum+=1;
+                }
+                else
+                    continue;
+            }
+            n=max(n,sum);
+        }
+        return n;
+    }
+};
+
+
+class Solution {
+public:
+    int sumIndicesWithKSetBits(vector<int>& nums, int k) {
+        int sz = nums.size();
+        long sum = 0, ctr = 0, j; // Initialize sum, ctr, and j variables
+        for (int i = 0; i < sz; i++) {
+            j = i; // Store current index i in j (to avoid modifying i directly)
+            ctr = 0; // Reset counter for set bits
+            while (j > 0) {
+                ctr += j & 1; // Add 1 to ctr if the least significant bit of j is 1
+                j = j >> 1; // Right shift j by 1 bit to check the next bit
+                cout << ctr << j; // Output the current count of set bits and the updated value of j (for debugging)
+            }
+            if (ctr == k) { // Check if the count of set bits equals k
+                sum = sum + nums[i]; // Add nums[i] to sum if the condition is met
+            }
+        }
+        return sum; // Return the final sum
+    }
+};
+
+class Solution {
+public:
+    vector<int> leftRightDifference(vector<int>& nums) {
+        const int n = nums.size();
+        vector<int> leftSum(n, 0);
+        int prefix = 0;
+        int suffix = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (i > 0) prefix += nums[i - 1];
+            leftSum[i] += prefix;
+        }
+        vector<int> rightSum(n, 0);
+        for (int i = n - 1; i >= 0; i--)
+        {
+            if ((int)i + 1 < n) suffix += nums[i + 1];
+            rightSum[i] = suffix;
+        }
+        vector<int> ans(n, 0);
+        for (int i = 0; i < n; i++)
+        {
+            ans[i] = (abs(leftSum[i] - rightSum[i]));
+        }
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    int numberOfPairs(vector<int>& nums1, vector<int>& nums2, int k) 
+    {
+        int ans = 0, div;
+        for(auto val:nums1)
+        {
+            for(auto v:nums2)
+            {
+                div = v * k;
+                if(val % div == 0) ans++;
+            }
+        }
+        return ans;
+    }
+};
